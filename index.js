@@ -2,8 +2,8 @@ const inquirer = require('inquirer')
 const Employee = require('./lib/Employee');
 
 
-const promptUser = () => {
-    return inquirer.prompt([
+const addManager = () => {
+     inquirer.prompt([
         //manager section
         {
             type: 'input',
@@ -57,189 +57,174 @@ const promptUser = () => {
                 }
             }
         },
-        //menu
-        {
-            type: 'list',
-            name: 'nextStep',
-            message: "how would you like to proceed?",
-            choices: ["add engineer", "add intern", "finish"]
-        },
+
         //end manager section
-
-
-        //intern section
-        {
-            type: 'input',
-            name: 'internName',
-            message: "intern's name:",
-            when: ({ nextStep }) => {
-                if (nextStep === "add intern") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'internId',
-            message: "intern's ID:",
-            when: ({ nextStep }) => {
-                if (nextStep === "add intern") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'internEmail',
-            message: "intern's email:",
-            when: ({ nextStep }) => {
-                if (nextStep === "add intern") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'internSchool',
-            message: "intern's school:",
-            when: ({ nextStep }) => {
-                if (nextStep === "add intern") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'list',
-            name: 'nextStep',
-            message: "how would you like to proceed?",
-            choices: ["add engineer", "add intern", "finish"]
-        },
-        {
-        type: 'input',
-            name: 'internSchool',
-            message: "intern's school:",
-            when: ({ nextStep }) => {
-                if (nextStep === "add intern") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        //engineer section
-        {
-            type: 'input',
-            name: 'engineerName',
-            message: "engineer's name: ",
-            when: ({ nextStep }) => {
-                if (nextStep === "add engineer") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'engineerId',
-            message: "engineer's id: ",
-            when: ({ nextStep }) => {
-                if (nextStep === "add engineer") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'engineerEmail',
-            message: "engineer's email: ",
-            when: ({ nextStep }) => {
-                if (nextStep === "add engineer") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'engineerGit',
-            message: "engineer's GitHub username: ",
-            when: ({ nextStep }) => {
-                if (nextStep === "add engineer") {
-
-                    return true
-                } else {
-                    return false
-                }
-            }
-        },
-        {
-            type: 'list',
-            name: 'nextStep',
-            message: "how would you like to proceed?",
-            choices: ["add engineer", "add intern", "finish"]
-        },
-
-        // done section
-        {
-        type: 'text',
-        name: 'done',
-        message: "you're done!",
-        when: ({nextStep}) => {
-            if(nextStep=== "finish") {
-                console.log("you're done!");
-                
-        }
-    }
-    },
-
 
 
     ]
     )
-    
-}
-
-const promptEngineer = employeeData => {
-    // If there's no 'employee' array property, create one
-    // if (!employeeData.employeeArr) {
-    //   employeeData.employeeArr = [];
-    // }
-
-    return inquirer.prompt([
-
+    .then(answers =>{
+        //push answers into employee data array
         
-        //end engineer section
-    ])
-    
-    // .then(engineerData => {
-    //     employeeData.employeeArr.push(engineerData);
-    //     if (engineerData.nextStep=== "add engineer") {
-    //       promptEngineer()
-    //     } else {
-    //       return employeeData;
-    //     }
-    //   })
+        menu()
+    })
+
 }
 
-// promptEngineer()
-promptUser()
+function menu() {
+    //menu
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'nextStep',
+            message: "how would you like to proceed?",
+            choices: ["addEngineer", "addIntern", "finish"]
+        },
+    ])
+        .then(userChoice => {
+            switch (userChoice.nextStep) {
+                case "addEngineer":
+                    addEngineer()
+                    break;
+
+                case "addIntern":
+                    addIntern()
+                    break;
+
+                default:
+                    finishText()
+            }
+        })
+}
+
+
+function addEngineer() {
+  
+     inquirer.prompt([
+
+ //engineer section
+ {
+    type: 'input',
+    name: 'engineerName',
+    message: "engineer's name: ",
+   
+},
+{
+    type: 'input',
+    name: 'engineerId',
+    message: "engineer's id: ",
+    
+},
+{
+    type: 'input',
+    name: 'engineerEmail',
+    message: "engineer's email: ",
+   
+},
+{
+    type: 'input',
+    name: 'engineerGit',
+    message: "engineer's GitHub username: ",
+   
+},
+        
+    ])  
+    .then(answers =>{
+        //push answers into employee data array
+
+        menu()
+    })
+}
+
+
+function addIntern() {
+       //intern section
+       inquirer.prompt([
+       {
+        type: 'input',
+        name: 'internName',
+        message: "intern's name:",
+        // when: ({ nextStep }) => {
+        //     if (nextStep === "add intern") {
+
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // }
+    },
+    {
+        type: 'input',
+        name: 'internId',
+        message: "intern's ID:",
+        // when: ({ nextStep }) => {
+        //     if (nextStep === "add intern") {
+
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // }
+    },
+    {
+        type: 'input',
+        name: 'internEmail',
+        message: "intern's email:",
+        // when: ({ nextStep }) => {
+        //     if (nextStep === "add intern") {
+
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // }
+    },
+    {
+        type: 'input',
+        name: 'internSchool',
+        message: "intern's school:",
+        // when: ({ nextStep }) => {
+        //     if (nextStep === "add intern") {
+
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // }
+    },
+    {
+        type: 'list',
+        name: 'nextStep',
+        message: "how would you like to proceed?",
+        choices: ["add engineer", "add intern", "finish"]
+    },
+    {
+        type: 'input',
+        name: 'internSchool',
+        message: "intern's school:",
+        // when: ({ nextStep }) => {
+        //     if (nextStep === "add intern") {
+
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // }
+    },
+])
+.then(answers =>{
+    //push answers into employee data array
+    
+    menu()
+})
+}
+
+function finishText() {
+ // done section
+ console.log("you're done!");
+ 
+ //writes file
+}
+
+
+addManager()
