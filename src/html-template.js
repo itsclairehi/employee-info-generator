@@ -4,79 +4,100 @@ const Manager = require("../lib/Manager");
 
 //filter employeeArr by job
 
-// const generateManager =employeeArr => {
-//   let manager = employeeArr[0];
-
-//   return `
-//   <h1>Manager</h1>
-//   <p>${manager.name}</p>`
-  
-  
-// } 
-
+//manager in case code needs to be updated to include more than 1
 function generateManager(){
-  function manager(person){
-    return person.getRole()==="Manager"
-  }
- const managers = employeeArr.filter(manager)
+  const manager = employeeArr.filter(employee => employee.getRole() === "Manager")
+ .map(manager =>{
+   return `<div class="card" style="width: 18rem;">
+   <div class="card-body">
+     <h5 class="card-title">${manager.name}</h5>
+     <h6 class="card-subtitle mb-2 text-muted">Manager</h6>
+     <p class="card-text">ID: ${manager.id}</p>
+     <p class="card-text">Email: ${manager.email}</p>
+     <p class="card-text">Office Number: ${manager.officeNumber}</p>
+     
+   </div>
+ </div>`
+ }).join('')
+ 
+ return manager;
 }
 
 
 //engineers
-function generateEngineer(employeeArr) {
-  function engineer(person){
-    return person.getRole()==="Engineer"
-  }
- const engineers = employeeArr.filter(engineer)
-
- for (let i = 0; i < engineers.length; i++) {
-   let current = engineers[i]
-   return `
+function generateEngineers(employeeArr) {
   
-   <div class="card" style="width: 18rem;">
+ const engineer = employeeArr.filter(employee => employee.getRole() === "Engineer")
+ .map(engineer =>{
+   return `<div class="card" style="width: 18rem;">
    <div class="card-body">
-     <h5 class="card-title">${current.name}</h5>
+     <h5 class="card-title">${engineer.name}</h5>
      <h6 class="card-subtitle mb-2 text-muted">Engineer</h6>
-     <p class="card-text">ID: ${current.id}</p>
-     <p class="card-text">Email: ${current.email}</p>
-     <p class="card-text">github: ${current.github}</p>
+     <p class="card-text">ID: ${engineer.id}</p>
+     <p class="card-text">Email: ${engineer.email}</p>
+     <p class="card-text">github: ${engineer.github}</p>
      
    </div>
- </div>
-
-   `
-   
- }
-
+ </div>`
+ }).join('')
  
+ return engineer;
+
 }
+
+
 //interns
 function generateInterns(){
-  function intern(person){
-    return person.getRole()==="Intern"
-  }
- const interns = employeeArr.filter(intern)
+  const intern = employeeArr.filter(employee => employee.getRole() === "Intern")
+  .map(intern =>{
+    return `<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">${intern.name}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Intern</h6>
+      <p class="card-text">ID: ${intern.id}</p>
+      <p class="card-text">Email: ${intern.email}</p>
+      <p class="card-text">School: ${intern.school}</p>
+      
+    </div>
+  </div>`
+  }).join('')
+  
+  return intern;
 }
 
 
-
-
-
+//return all html to writeToFile function
+ function renderPage(employeeArr){
  
- function test(employeeArr){
-  //  console.log("HELLO????", employeeArr[1].getRole());
-   
    return `
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel = "stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+    <h1>My Team</h1>
+    </header>
    
-   ${generateEngineer(employeeArr)}`
+    <div class="container">
+    <div class="row">
+                 
+    ${generateManager(employeeArr)}
+    ${generateEngineers(employeeArr)}
+    ${generateInterns(employeeArr)}
+
+    </div>
+    </div> 
+    
+</body>
+</html>
+   
+   `
  }
  
-
- 
- 
-
- 
- 
- 
-
- module.exports =  test
+ module.exports =  renderPage

@@ -5,7 +5,7 @@ const Manager = require('./lib/Manager')
 const Intern = require('./lib/Intern')
 const Engineer = require('./lib/Engineer');
 
-const test = require('./src/html-template')
+const renderPage = require('./src/html-template');
 
 
 
@@ -189,7 +189,8 @@ function addIntern() {
 function finishText() {
   
     //writes file
-    writeToFile(test(employeeArr))
+    writeToFile(renderPage(employeeArr));
+    copyCSS()
 
 }
 
@@ -199,17 +200,19 @@ function writeToFile(data) {
     fs.writeFile(`./dist/index.html`, data, err => {
         if (err) {
             console.log(err)
-        }
+        } 
+    })
+    
+}
 
-        console.log("success!");
+//copies css file
+function copyCSS() {
+    fs.copyFile('./src/style.css', './dist/style.css', (err)=>{
+        if (err) { 
+            console.log(err); 
+          } 
     })
 }
 
-
-
-function init() {
-    addManager()
-
-}
-init()
-
+//initializes program
+addManager()
