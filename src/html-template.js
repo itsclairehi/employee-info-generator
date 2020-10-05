@@ -13,7 +13,7 @@ function generateManager(){
      <h5 class="card-title">${manager.name}</h5>
      <h6 class="card-subtitle mb-2 text-muted">Manager</h6>
      <p class="card-text">ID: ${manager.id}</p>
-     <p class="card-text">Email: ${manager.email}</p>
+     <p class="card-text">Email: <a href="mailto:${manager.email}">${manager.email}</a></p>
      <p class="card-text">Office Number: ${manager.officeNumber}</p>
      
    </div>
@@ -34,8 +34,12 @@ function generateEngineers(employeeArr) {
      <h5 class="card-title">${engineer.name}</h5>
      <h6 class="card-subtitle mb-2 text-muted">Engineer</h6>
      <p class="card-text">ID: ${engineer.id}</p>
-     <p class="card-text">Email: ${engineer.email}</p>
-     <p class="card-text">github: ${engineer.github}</p>
+     <p class="card-text">Email: 
+     <a href="mailto:${engineer.email}">${engineer.email}</a>
+     </p>
+     <p class="card-text">github: 
+     <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a>
+     </p>
      
    </div>
  </div>`
@@ -55,7 +59,7 @@ function generateInterns(){
       <h5 class="card-title">${intern.name}</h5>
       <h6 class="card-subtitle mb-2 text-muted">Intern</h6>
       <p class="card-text">ID: ${intern.id}</p>
-      <p class="card-text">Email: ${intern.email}</p>
+      <p class="card-text">Email: <a href="mailto:${intern.email}">${intern.email}</a></p>
       <p class="card-text">School: ${intern.school}</p>
       
     </div>

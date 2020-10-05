@@ -10,7 +10,7 @@ expect(manager.officeNumber).toEqual(2)
 test("manager role", ()=>{
     const manager = new Manager('bob', 1, 'me@me.com', 2)
     
-    expect(manager.getRole()).toHaveProperty('role')
+    expect(manager.getRole()).toBe('Manager')
     
     }) 
 

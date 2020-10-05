@@ -1,16 +1,17 @@
+//npm
 const inquirer = require('inquirer')
 const fs = require('fs');
 
+//classes
 const Manager = require('./lib/Manager')
 const Intern = require('./lib/Intern')
 const Engineer = require('./lib/Engineer');
 
+//plug in html template
 const renderPage = require('./src/html-template');
 
 
-
 employeeArr = []
-
 
 
 const addManager = () => {
@@ -74,7 +75,6 @@ const addManager = () => {
             
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNum)
 
-            console.log(manager);
             employeeArr.push(manager)
            
             menu()
@@ -103,7 +103,7 @@ function menu(data) {
                     break;
 
                 default:
-                    finishText(data)
+                    makePage(data)
             }
         })
 }
@@ -186,11 +186,13 @@ function addIntern() {
         })
 }
 
-function finishText() {
+function makePage() {
   
     //writes file
     writeToFile(renderPage(employeeArr));
     copyCSS()
+    console.log("success!");
+    
 
 }
 
