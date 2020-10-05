@@ -1,9 +1,24 @@
 const inquirer = require('inquirer')
-const Employee = require('./lib/Employee');
+const fs = require('fs');
+
+const Manager = require('./lib/Manager')
+const Intern = require('./lib/Intern')
+const Engineer = require('./lib/Engineer');
+
+// employeeObj={
+//     manager: [],
+//     engineers: [],
+//     interns: []
+// }
+
+employeeObj = []
+
+
+
 
 
 const addManager = () => {
-     inquirer.prompt([
+    inquirer.prompt([
         //manager section
         {
             type: 'input',
@@ -33,7 +48,7 @@ const addManager = () => {
         },
         {
             type: 'input',
-            name: 'id',
+            name: 'email',
             message: "What is your team manager's email? (Required)",
             validate: nameInput => {
                 if (nameInput) {
@@ -57,17 +72,22 @@ const addManager = () => {
                 }
             }
         },
-
-        //end manager section
-
-
     ]
     )
-    .then(answers =>{
-        //push answers into employee data array
-        
-        menu()
-    })
+        .then((answers) => {
+            //is this what they want us to do?
+            const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNum)
+            
+            console.log(manager);
+            employeeObj.push(manager)
+            //this syntax works too
+            // employeeObj.manager.push(answers)
+            
+            
+            
+
+            menu()
+        })
 
 }
 
@@ -99,132 +119,123 @@ function menu() {
 
 
 function addEngineer() {
-  
-     inquirer.prompt([
 
- //engineer section
- {
-    type: 'input',
-    name: 'engineerName',
-    message: "engineer's name: ",
-   
-},
-{
-    type: 'input',
-    name: 'engineerId',
-    message: "engineer's id: ",
-    
-},
-{
-    type: 'input',
-    name: 'engineerEmail',
-    message: "engineer's email: ",
-   
-},
-{
-    type: 'input',
-    name: 'engineerGit',
-    message: "engineer's GitHub username: ",
-   
-},
-        
-    ])  
-    .then(answers =>{
-        //push answers into employee data array
+    inquirer.prompt([
 
-        menu()
-    })
+        //engineer section
+        {
+            type: 'input',
+            name: 'name',
+            message: "engineer's name: ",
+
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "engineer's id: ",
+
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "engineer's email: ",
+
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: "engineer's GitHub username: ",
+
+        },
+
+    ])
+        .then(answers => {
+            const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+            employeeObj.push(engineer)
+            // employeeObj.engineers.push(answers)
+
+            menu()
+        })
 }
 
 
 function addIntern() {
-       //intern section
-       inquirer.prompt([
-       {
-        type: 'input',
-        name: 'internName',
-        message: "intern's name:",
-        // when: ({ nextStep }) => {
-        //     if (nextStep === "add intern") {
+    //intern section
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: "intern's name:",
 
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // }
-    },
-    {
-        type: 'input',
-        name: 'internId',
-        message: "intern's ID:",
-        // when: ({ nextStep }) => {
-        //     if (nextStep === "add intern") {
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "intern's ID:",
 
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // }
-    },
-    {
-        type: 'input',
-        name: 'internEmail',
-        message: "intern's email:",
-        // when: ({ nextStep }) => {
-        //     if (nextStep === "add intern") {
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "intern's email:",
 
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // }
-    },
-    {
-        type: 'input',
-        name: 'internSchool',
-        message: "intern's school:",
-        // when: ({ nextStep }) => {
-        //     if (nextStep === "add intern") {
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: "intern's school:",
+        },
+        
+    ])
+        .then(answers => {
+            const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
+            console.log("LOOK"+JSON.stringify(intern.getRole()));
+             
+            employeeObj.push(intern)
+            // employeeObj.interns.push(answers)
 
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // }
-    },
-    {
-        type: 'list',
-        name: 'nextStep',
-        message: "how would you like to proceed?",
-        choices: ["add engineer", "add intern", "finish"]
-    },
-    {
-        type: 'input',
-        name: 'internSchool',
-        message: "intern's school:",
-        // when: ({ nextStep }) => {
-        //     if (nextStep === "add intern") {
-
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // }
-    },
-])
-.then(answers =>{
-    //push answers into employee data array
-    
-    menu()
-})
+            menu()
+        })
 }
 
 function finishText() {
- // done section
- console.log("you're done!");
- 
- //writes file
+    // done section
+    console.log("you're done!");
+    // console.log("employee array " + JSON.stringify(employeeObj));
+    console.log(employeeObj);
+    // console.log(employeeObj.manager);
+
+
+    //writes file
+
+
+}
+
+//writes file using fs
+function writeToFile(data) {
+
+    fs.writeFile(`./dist/index.html`, data, err => {
+        if (err) {
+            console.log(err)
+        }
+        console.log("success!");
+
+    })
 }
 
 
+
+
 addManager()
+
+
+
+// writeToFile("hello")
+// .then((data)=>{
+// writeToFile(data)
+// })
+// .catch(err => {
+//     console.log(err);
+//   });
+
+module.exports = employeeObj
