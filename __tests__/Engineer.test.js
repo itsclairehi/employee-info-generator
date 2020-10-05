@@ -1,23 +1,20 @@
 const Engineer = require('../lib/Engineer')
 
 test("github function", () => {
-    const engineer = new Engineer
-    expect(engineer.getGithub()).toHaveProperty("github")
+    const engineer = new Engineer('bob', 1, 'me@me.com', 'coolguy')
+    expect(engineer.getGithub()).toBe("coolguy")
 })
 
 test("github variable", () => {
-    const engineer = new Engineer('bob', 1, 'me@me.com', 'coolguy', 'Engineer' )
+    const engineer = new Engineer('bob', 1, 'me@me.com', 'coolguy')
     expect(engineer.github).toBe("coolguy")
 })
 
 test("role function", () => {
-    const engineer = new Engineer
-    expect(engineer.getRole()).toHaveProperty("role")
+    const engineer = new Engineer('bob', 1, 'me@me.com', 'coolguy')
+    expect(engineer.getRole()).toBe("Engineer")
 })
 
-test("role property", () => {
-    const engineer = new Engineer('bob', 1, 'me@me.com', 'coolguy', 'Engineer')
-    expect(engineer.role).toBe("Engineer")
-})
+
 
 

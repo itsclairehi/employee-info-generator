@@ -1,31 +1,82 @@
-const Employee = require('../lib/Employee')
+const Engineer = require("../lib/Engineer");
+const Manager = require("../lib/Manager");
 
- module.exports = pageTemplate => {
-     return `
-     <!DOCTYPE html>
-  <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Portfolio Demo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-  </head>
+//filter employeeArr by job
 
-  <body>
-    <header>
-      <div class="container flex-row justify-space-between align-center py-3">
-        <h1 class="page-title text-secondary bg-dark py-2 px-3">hello</h1>
-        <nav class="flex-row">
-          <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="#">GitHub</a>
-        </nav>
-      </div>
-    </header>
+// const generateManager =employeeArr => {
+//   let manager = employeeArr[0];
 
-  </body>
-  </html>
-     `
+//   return `
+//   <h1>Manager</h1>
+//   <p>${manager.name}</p>`
+  
+  
+// } 
+
+function generateManager(){
+  function manager(person){
+    return person.getRole()==="Manager"
+  }
+ const managers = employeeArr.filter(manager)
+}
+
+
+//engineers
+function generateEngineer(employeeArr) {
+  function engineer(person){
+    return person.getRole()==="Engineer"
+  }
+ const engineers = employeeArr.filter(engineer)
+
+ for (let i = 0; i < engineers.length; i++) {
+   let current = engineers[i]
+   return `
+  
+   <div class="card" style="width: 18rem;">
+   <div class="card-body">
+     <h5 class="card-title">${current.name}</h5>
+     <h6 class="card-subtitle mb-2 text-muted">Engineer</h6>
+     <p class="card-text">ID: ${current.id}</p>
+     <p class="card-text">Email: ${current.email}</p>
+     <p class="card-text">github: ${current.github}</p>
+     
+   </div>
+ </div>
+
+   `
+   
  }
+
+ 
+}
+//interns
+function generateInterns(){
+  function intern(person){
+    return person.getRole()==="Intern"
+  }
+ const interns = employeeArr.filter(intern)
+}
+
+
+
+
+
+ 
+ function test(employeeArr){
+  //  console.log("HELLO????", employeeArr[1].getRole());
+   
+   return `
+   
+   ${generateEngineer(employeeArr)}`
+ }
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+
+ module.exports =  test

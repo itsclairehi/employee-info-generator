@@ -5,15 +5,11 @@ const Manager = require('./lib/Manager')
 const Intern = require('./lib/Intern')
 const Engineer = require('./lib/Engineer');
 
-// employeeObj={
-//     manager: [],
-//     engineers: [],
-//     interns: []
-// }
-
-employeeObj = []
+const test = require('./src/html-template')
 
 
+
+employeeArr = []
 
 
 
@@ -75,23 +71,18 @@ const addManager = () => {
     ]
     )
         .then((answers) => {
-            //is this what they want us to do?
+            
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNum)
-            
-            console.log(manager);
-            employeeObj.push(manager)
-            //this syntax works too
-            // employeeObj.manager.push(answers)
-            
-            
-            
 
+            console.log(manager);
+            employeeArr.push(manager)
+           
             menu()
         })
 
 }
 
-function menu() {
+function menu(data) {
     //menu
     inquirer.prompt([
         {
@@ -112,7 +103,7 @@ function menu() {
                     break;
 
                 default:
-                    finishText()
+                    finishText(data)
             }
         })
 }
@@ -151,9 +142,8 @@ function addEngineer() {
     ])
         .then(answers => {
             const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
-            employeeObj.push(engineer)
-            // employeeObj.engineers.push(answers)
-
+            employeeArr.push(engineer)
+            
             menu()
         })
 }
@@ -185,29 +175,21 @@ function addIntern() {
             name: 'school',
             message: "intern's school:",
         },
-        
+
     ])
         .then(answers => {
             const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
-            console.log("LOOK"+JSON.stringify(intern.getRole()));
-             
-            employeeObj.push(intern)
-            // employeeObj.interns.push(answers)
-
+           
+            employeeArr.push(intern)
+           
             menu()
         })
 }
 
 function finishText() {
-    // done section
-    console.log("you're done!");
-    // console.log("employee array " + JSON.stringify(employeeObj));
-    console.log(employeeObj);
-    // console.log(employeeObj.manager);
-
-
+  
     //writes file
-
+    writeToFile(test(employeeArr))
 
 }
 
@@ -218,24 +200,16 @@ function writeToFile(data) {
         if (err) {
             console.log(err)
         }
-        console.log("success!");
 
+        console.log("success!");
     })
 }
 
 
 
+function init() {
+    addManager()
 
-addManager()
+}
+init()
 
-
-
-// writeToFile("hello")
-// .then((data)=>{
-// writeToFile(data)
-// })
-// .catch(err => {
-//     console.log(err);
-//   });
-
-module.exports = employeeObj

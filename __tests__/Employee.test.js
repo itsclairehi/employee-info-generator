@@ -14,23 +14,23 @@ test("creates new employee", () => {
 test("get employee name", () =>{
     const employee = new Employee('bob', 352, 'me@me.com');
 
-    expect(employee.getName()).toHaveProperty('name')
+    expect(employee.getName()).toBe('bob')
 })
 
 test("get employee id", () =>{
     const employee = new Employee('bob', 352, 'me@me.com');
     
-    expect(employee.getId()).toHaveProperty('id')
+    expect(employee.getId()).toEqual(352)
 })
 
 test("get employee email", () =>{
     const employee = new Employee('bob', 352, 'me@me.com');
     
-    expect(employee.getEmail()).toHaveProperty('email')
+    expect(employee.getEmail()).toBe('me@me.com')
 })
 
 test("get employee role", () =>{
     const employee = new Employee('bob', 352, 'me@me.com');
     
-    expect(employee.getRole()).toHaveProperty('role')
+    expect(employee.getRole()).toBe('Employee')
 })
